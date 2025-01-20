@@ -1,32 +1,23 @@
 class Solution {
     public int firstCompleteIndex(int[] arr, int[][] mat) {
-        int n =mat.length;
-        int m = mat[0].length;
-        int ro[] = new int[m];
-        int co[]= new int[n];
-        System.out.println(ro.length);
-        Arrays.fill(ro,n);
-        Arrays.fill(co,m);
-        HashMap<Integer,Integer> hm = new HashMap<>();
-        HashMap<Integer,Integer> hm1 = new HashMap<>();
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                hm.put(mat[i][j],j);
-                hm1.put(mat[i][j],i);
-            }
-        }
-        for(int i=0;i<arr.length;i++){
-            int a=hm.get(arr[i]);
-            int b = hm1.get(arr[i]);
-            ro[a]--;
-            co[b]--;
-            if(ro[a]==0|| co[b]==0){
+        int rows = mat.length;
+        int cols = mat[0].length;
+        int[] rowTally = new int[rows];
+        int[] colTally = new int[cols];
+        Map<Integer, int[]> nums = new HashMap<>();
+        for(int r = 0; r < rows; r++)
+            for(int c = 0; c < cols; c++) {
+                nums.put(mat[r][c], new int[]{r, c});
+            }       
+        for(int i = 0; i < arr.length; i++) {
+            int[] curr = nums.get(arr[i]);
+            rowTally[curr[0]]++;
+            if(rowTally[curr[0]] == cols)
                 return i;
-
-            }
+            colTally[curr[1]]++;
+            if(colTally[curr[1]] == rows)
+                return i;
         }
-        return -1;
-
-
+        return arr.length - 1;
     }
 }
