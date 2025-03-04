@@ -5,14 +5,14 @@ public class Solution {
             hm.put(c, hm.getOrDefault(c, 0) + 1);
         }
         int begin = 0, end = 0;
-        int counter = t.length();  
-        int len = Integer.MAX_VALUE;  
+        int counter = t.length();
+        int len = Integer.MAX_VALUE;
         String ans = "";
         while (end < s.length()) {
             char endChar = s.charAt(end);
             if (hm.containsKey(endChar)) {
                 if (hm.get(endChar) > 0) {
-                    counter--; 
+                    counter--;
                 }
                 hm.put(endChar, hm.get(endChar) - 1);
             }
