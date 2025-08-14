@@ -1,22 +1,15 @@
 class Solution {
     public String largestGoodInteger(String num) {
-        char prev = '-';
-        int cnt = 1;
-        String ans = "";
-        for (char c : num.toCharArray()) {
-            if (c != prev) {
-                prev = c;
-                cnt = 1;
-            } else {
-                cnt++;
-            }
-            if (cnt >= 3) {
-                String cur = "" + c + c + c;
-                if (ans.equals("") || cur.compareTo(ans) > 0) {
-                    ans = cur;
+        int i = 0;
+        String max = "";
+        while (i < num.length()) {
+            if (i + 1 < num.length() && num.charAt(i) == num.charAt(i + 1) && i + 2 < num.length()
+                    && num.charAt(i) == num.charAt(i + 2))
+                if (max.compareTo(num.substring(i, i + 3)) < 0) {
+                    max = num.substring(i, i + 3);
                 }
-            }
+            i++;
         }
-        return ans;
+        return max;
     }
 }
